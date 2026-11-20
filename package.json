@@ -1,0 +1,7 @@
+{
+  "name": "portfolio-chat-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend serverless du chatbot du portfolio de Nadim Hafsi",
+  "engines": { "node": ">=18" }
+}
