@@ -121,7 +121,6 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 400,
-        temperature: 0.3,
         system: SYSTEM_PROMPT,
         messages,
       }),
