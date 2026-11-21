@@ -303,14 +303,17 @@
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({messages: history.slice(-10)})
       });
-      const data = await r.json();
-      const reply = data.reply || 'Désolé, une erreur est survenue.';
+      const txt = await r.text();
+      let data;
+      try { data = JSON.parse(txt); }
+      catch (_) { throw new Error('Le serveur a répondu avec le code ' + r.status + ' (réponse non valide)'); }
+      const reply = data.reply || ('Erreur ' + r.status + ' : ' + (data.error || 'inconnue'));
       wait.remove();
       add(reply, 'b');
       history.push({role:'assistant', content:reply});
     } catch (e) {
       wait.remove();
-      add("Impossible de joindre l'assistant. Vous pouvez écrire à Nadim : nadimhafsi20@gmail.com", 'b');
+      add("Impossible de joindre l'assistant (détail technique : " + e.message + "). Vous pouvez écrire à Nadim : nadimhafsi20@gmail.com", 'b');
       history.pop();
     }
     busy = false; send.disabled = false;
